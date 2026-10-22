@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Linx TTS — formant speech engine</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230d1014'/><text x='16' y='23' font-family='monospace' font-size='19' fill='%237fe3b8' text-anchor='middle'>L</text></svg>">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+  <header class="head">
+    <div class="mark">
+      <span class="glyph">L</span>
+      <div>
+        <h1>Linx TTS</h1>
+        <p class="sub">formant synthesis engine · text → phonemes → sound</p>
+      </div>
+    </div>
+    <div class="statusline">
+      <span id="dot" class="dot"></span>
+      <span id="status">ready</span>
+    </div>
+  </header>
+
+  <main class="grid">
+    <section class="panel input-panel">
+      <label class="field-label" for="text">Text</label>
+      <textarea id="text" spellcheck="false" placeholder="Type anything. Numbers, dates, money and symbols are read out too.">The engine you are hearing was built from nothing but rules and filters. Every word is turned into phonemes, every phoneme into formants, and every formant into a moving column of air. Listen closely and you can hear the shape of the mouth behind it.</textarea>
+
+      <div class="controls">
+        <div class="ctrl">
+          <label for="voice">Voice</label>
+          <select id="voice"></select>
+        </div>
+        <div class="ctrl">
+          <label for="rate">Rate <output id="rate-out">1.00×</output></label>
+          <input id="rate" type="range" min="0.5" max="2" step="0.01" value="1">
+        </div>
+        <div class="ctrl">
+          <label for="pitch">Pitch <output id="pitch-out">1.00×</output></label>
+          <input id="pitch" type="range" min="0.55" max="1.9" step="0.01" value="1">
+        </div>
+        <div class="ctrl">
+          <label for="breath">Breath <output id="breath-out">0.02</output></label>
+          <input id="breath" type="range" min="0" max="0.3" step="0.005" value="0.02">
+        </div>
+        <div class="ctrl">
+          <label for="volume">Volume <output id="volume-out">100%</output></label>
+          <input id="volume" type="range" min="0" max="1" step="0.01" value="1">
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="speak" class="primary">Speak</button>
+        <button id="stop" class="ghost">Stop</button>
+        <button id="save" class="ghost">Save WAV</button>
+        <span class="hint">ctrl+enter speak · esc stop</span>
+      </div>
+
+      <details class="advanced">
+        <summary>Pronunciation dictionary</summary>
+        <p class="note">One word per line. Left: the word. Right: ARPAbet phonemes, optional stress digit 0–2 on vowels.</p>
+        <textarea id="overrides" spellcheck="false" rows="5" placeholder="kepler = K EH1 P L ER
+nginx = EH1 N JH IH0 N EH1 K S"></textarea>
+        <p class="note small">ARPAbet: AA AE AH AO AW AY EH ER EY IH IY OW OY UH UW B CH D DH F G HH JH K L M N NG P R S SH T TH V W Y Z ZH</p>
+      </details>
+    </section>
+
+    <section class="panel out-panel">
+      <div class="out-head">
+        <label class="field-label">Output</label>
+        <span id="duration" class="mono muted">—</span>
+      </div>
+      <canvas id="wave" width="640" height="120"></canvas>
+      <div id="words" class="words"></div>
+      <details class="advanced" id="phones-box" open>
+        <summary>Phoneme transcription</summary>
+        <div id="phones" class="phones mono"></div>
+      </details>
+    </section>
+  </main>
+
+  <footer class="foot mono muted">
+    <span>no network · no models · no samples</span>
+    <span id="count">0 words</span>
+  </footer>
+</div>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

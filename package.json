@@ -1,0 +1,11 @@
+{
+  "name": "linx-tts",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "From-scratch formant text-to-speech engine for the browser",
+  "scripts": {
+    "test": "node tools/test_render.mjs",
+    "serve": "python3 serve.py"
+  }
+}
